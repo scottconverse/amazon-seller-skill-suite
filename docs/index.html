@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Seller Skill Suite — 6 Claude Cowork skills for Amazon marketplace selling</title>
+    <meta name="description" content="6 Claude Cowork skills for Amazon marketplace selling. Hard gates, contradiction detection, anti-hallucination controls, and cross-skill handoff. Works with any brand, any product category, any seller account type.">
+    <meta property="og:title" content="Amazon Seller Skill Suite">
+    <meta property="og:description" content="6 Claude Cowork skills for Amazon marketplace selling. 34 rules, ~19,650 words of specialist instruction across listing optimization, trend research, account strategy, brand management, social strategy, and QA.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://scottconverse.github.io/amazon-seller-skill-suite/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e13;
+            --bg-raised: #131921;
+            --bg-card: #1a2130;
+            --border: #2a3444;
+            --border-hover: #ff9900;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --text-bright: #e6edf3;
+            --accent: #ff9900;
+            --accent-dim: #cc7a00;
+            --accent-glow: rgba(255, 153, 0, 0.15);
+            --green: #3fb950;
+            --green-dim: #238636;
+            --orange: #ff9900;
+            --red: #f85149;
+            --purple: #bc8cff;
+            --cyan: #39d2c0;
+            --yellow: #e3b341;
+            --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 12px rgba(0,0,0,0.2);
+            --mono: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', Consolas, monospace;
+            --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .container { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; }
+        .wide-container { max-width: 1080px; margin: 0 auto; padding: 0 1.5rem; }
+
+        code { font-family: var(--mono); }
+
+        /* -- Header -- */
+        header {
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header-logo {
+            font-family: var(--mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-bright);
+        }
+        .header-logo span { color: var(--accent); }
+        .header-links {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+        }
+        .header-links a { color: var(--text-muted); }
+        .header-links a:hover { color: var(--text-bright); text-decoration: none; }
+
+        /* -- Hero -- */
+        .hero {
+            padding: 5rem 0 4rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,153,0,0.06) 0%, transparent 60%);
+        }
+        .hero-name {
+            font-family: var(--mono);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+        }
+        .hero-name .highlight { color: var(--accent); }
+        .hero-tagline {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 540px;
+            margin: 0 auto 0.5rem;
+        }
+        .hero-version {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+        .hero-cta {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            font-family: var(--sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            border: 1px solid transparent;
+        }
+        .btn:hover { text-decoration: none; }
+        .btn-primary { background: var(--accent-dim); color: #fff; border-color: var(--accent-dim); }
+        .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+        .btn-secondary { background: var(--bg-raised); color: var(--text); border-color: var(--border); }
+        .btn-secondary:hover { border-color: var(--text-muted); color: var(--text-bright); }
+
+        /* -- Stats -- */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3.5rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .stat { text-align: center; }
+        .stat-number {
+            font-family: var(--mono);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.2;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
+
+        /* -- Sections -- */
+        .section { padding: 3.5rem 0; border-bottom: 1px solid var(--border); }
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-bright);
+            margin-bottom: 0.4rem;
+        }
+        .section-intro {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+
+        /* -- Install steps -- */
+        .install-steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        .install-step {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: border-color 0.15s ease;
+        }
+        .install-step:hover { border-color: var(--accent); }
+        .install-step-num {
+            font-family: var(--mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+        .install-step-title {
+            font-weight: 600;
+            color: var(--text-bright);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+        .install-step-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* -- Skills table -- */
+        .skill-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .skill-table th {
+            text-align: left;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+        .skill-table td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        .skill-table tr:last-child td { border-bottom: none; }
+        .skill-table tr:hover { background: rgba(255, 153, 0, 0.04); }
+        .skill-name {
+            font-family: var(--mono);
+            font-weight: 600;
+            color: var(--text-bright);
+            white-space: nowrap;
+        }
+        .skill-words {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+        .skill-desc { color: var(--text-muted); }
+        .table-wrap {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        /* -- Feature grid -- */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        .feature-card {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.25rem 1.5rem;
+            transition: border-color 0.15s ease;
+        }
+        .feature-card:hover { border-color: var(--border-hover); }
+        .feature-icon {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        .feature-name {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-bright);
+            margin-bottom: 0.35rem;
+        }
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* -- Workflows -- */
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .workflow-card {
+            background: var(--bg-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: border-color 0.15s ease;
+        }
+        .workflow-card:hover { border-color: var(--accent); }
+        .workflow-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--text-bright);
+            margin-bottom: 0.2rem;
+        }
+        .workflow-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .workflow-steps { list-style: none; }
+        .workflow-steps li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.4rem 0;
+            font-size: 0.85rem;
+            color: var(--text);
+            border-bottom: 1px solid rgba(42, 52, 68, 0.5);
+        }
+        .workflow-steps li:last-child { border-bottom: none; }
+        .step-num {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            background: rgba(255, 153, 0, 0.12);
+            border-radius: 4px;
+            padding: 0.15rem 0.4rem;
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+        .step-skill {
+            font-weight: 600;
+            color: var(--text-bright);
+        }
+        .step-arrow {
+            display: block;
+            text-align: center;
+            color: var(--accent);
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            padding: 0.15rem 0;
+            opacity: 0.5;
+        }
+
+        /* -- Footer -- */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .footer-links a:hover { color: var(--accent); }
+        .footer-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: var(--mono);
+        }
+
+        @media (max-width: 768px) {
+            .install-steps { grid-template-columns: repeat(2, 1fr); }
+            .workflow-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            .hero-name { font-size: 2rem; }
+            .hero-tagline { font-size: 1rem; }
+            .stats { gap: 2rem; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 280px; text-align: center; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .install-steps { grid-template-columns: 1fr; }
+            .header-links { gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="wide-container">
+        <div class="header-inner">
+            <div class="header-logo"><span>//</span> amazon-seller-skill-suite</div>
+            <nav class="header-links">
+                <a href="https://github.com/scottconverse/amazon-seller-skill-suite">GitHub</a>
+                <a href="https://github.com/scottconverse/amazon-seller-skill-suite/issues">Issues</a>
+                <a href="https://github.com/scottconverse/amazon-seller-skill-suite/archive/refs/heads/main.zip">Download</a>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-name">Amazon Seller <span class="highlight">Skill Suite</span></div>
+        <p class="hero-tagline">6 Claude Cowork skills for Amazon marketplace selling</p>
+        <div class="hero-version">v1.0 &middot; MIT License &middot; Works with any brand, any category, any account type</div>
+        <div class="hero-cta">
+            <a href="https://github.com/scottconverse/amazon-seller-skill-suite" class="btn btn-primary">View on GitHub</a>
+            <a href="https://github.com/scottconverse/amazon-seller-skill-suite/archive/refs/heads/main.zip" class="btn btn-secondary">Download .zip</a>
+        </div>
+    </div>
+</section>
+
+<div class="stats">
+    <div class="stat">
+        <div class="stat-number">6</div>
+        <div class="stat-label">Specialist Skills</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">34</div>
+        <div class="stat-label">Hard Rules</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">~19,650</div>
+        <div class="stat-label">Words of Instruction</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">0</div>
+        <div class="stat-label">Hallucinated Metrics</div>
+    </div>
+</div>
+
+<!-- Quick Start -->
+<section class="section">
+    <div class="container">
+        <h2>Quick Start</h2>
+        <p class="section-intro">Drag, drop, sell. No configuration needed.</p>
+        <div class="install-steps">
+            <div class="install-step">
+                <div class="install-step-num">1</div>
+                <div class="install-step-title">Open Claude Desktop</div>
+                <div class="install-step-desc">Launch Claude Desktop in Cowork mode</div>
+            </div>
+            <div class="install-step">
+                <div class="install-step-num">2</div>
+                <div class="install-step-title">Drag .skill file</div>
+                <div class="install-step-desc">Drag any .skill file into the chat window</div>
+            </div>
+            <div class="install-step">
+                <div class="install-step-num">3</div>
+                <div class="install-step-title">Copy to Skills</div>
+                <div class="install-step-desc">Click "Copy to your skills" when prompted</div>
+            </div>
+            <div class="install-step">
+                <div class="install-step-num">4</div>
+                <div class="install-step-title">Repeat</div>
+                <div class="install-step-desc">Install all 6 skills. They activate automatically.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Skills -->
+<section class="section">
+    <div class="wide-container">
+        <h2>The 6 Skills</h2>
+        <p class="section-intro">Each skill is a specialist with its own domain, gates, and contradiction detection.</p>
+        <div class="table-wrap">
+            <table class="skill-table">
+                <thead>
+                    <tr>
+                        <th>Skill</th>
+                        <th>Words</th>
+                        <th>What It Does</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="skill-name">Listing Optimizer</td>
+                        <td class="skill-words">~3,560</td>
+                        <td class="skill-desc">Titles, bullets, backend keywords, A+ Content plans, image shot lists. Title positioning logic for value/mid-market/premium brands. Backend keyword packing with UTF-8 byte counting.</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Trend Researcher</td>
+                        <td class="skill-words">~2,460</td>
+                        <td class="skill-desc">Competitor analysis, category trends, demand validation, keyword intelligence. 4-archetype competitor segmentation. Price band analysis. Verdict ceiling -- cannot issue GO without margin data.</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Account Strategist</td>
+                        <td class="skill-words">~3,090</td>
+                        <td class="skill-desc">Pricing, expansion, variation strategy, review growth, FBA vs FBM. 7 decision gates. Launch sequencing with 4 gated phases. Portfolio triage: SCALE / HOLD / INVEST / KILL.</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Brand Guardian</td>
+                        <td class="skill-words">~2,470</td>
+                        <td class="skill-desc">Brand voice, visual identity, photography direction, Brand Story. Giftability and sustainability honesty tests. Extensible claim challenge framework for any positioning claim.</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Social Strategist</td>
+                        <td class="skill-words">~3,290</td>
+                        <td class="skill-desc">Content calendars, post drafting, external traffic strategy. Capacity gate confirms hours/budget/tools before planning. Every tactic tied to Amazon outcomes.</td>
+                    </tr>
+                    <tr>
+                        <td class="skill-name">Listing QA</td>
+                        <td class="skill-words">~4,780</td>
+                        <td class="skill-desc">Pre-publish quality gate. Hostile by default. Prompt injection defense. 7-category semantic laundering detection. Environmental claim verification. Exact byte/character computation.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Key Features -->
+<section class="section">
+    <div class="wide-container">
+        <h2>Key Features</h2>
+        <p class="section-intro">Not just prompts. Gated, adversarial, cross-validated specialist systems.</p>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">Enforcement</div>
+                <div class="feature-name">Hard Gates</div>
+                <div class="feature-desc">Every skill blocks output until required inputs are confirmed. No COGS? No pricing advice. No brand brief? No copy. No exact listing text? No QA audit.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">Validation</div>
+                <div class="feature-name">Contradiction Detection</div>
+                <div class="feature-desc">Every skill checks inputs for internal contradictions before proceeding. "Premium brand" + "cheap price" = blocked. "Eco-friendly" without certification = challenged.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">Integrity</div>
+                <div class="feature-name">Anti-Hallucination</div>
+                <div class="feature-desc">No skill fabricates BSR numbers, search volumes, or conversion rates. All numerical claims labeled by source confidence: VERIFIED, ESTIMATED, or INFERRED.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">Pipeline</div>
+                <div class="feature-name">Cross-Skill Handoff</div>
+                <div class="feature-desc">Chained skills inherit upstream BLOCKED ITEMS and unresolved contradictions. No skill can proceed past an inherited block without new evidence.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">Security</div>
+                <div class="feature-name">Injection Defense</div>
+                <div class="feature-desc">All 6 skills treat user-supplied content as DATA, not instructions. Embedded directives like "ignore rules" are flagged as hostile findings, not obeyed.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">Adaptive</div>
+                <div class="feature-name">Any Brand, Any Category</div>
+                <div class="feature-desc">No hardcoded product assumptions. On first use, each skill asks about your brand, products, and goals. Works for private label, wholesale, or arbitrage.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Workflows -->
+<section class="section">
+    <div class="wide-container">
+        <h2>Workflows</h2>
+        <p class="section-intro">Chain skills together for complete Amazon operations.</p>
+        <div class="workflow-grid">
+            <div class="workflow-card">
+                <div class="workflow-title">Launch a New Product</div>
+                <div class="workflow-subtitle">Full pipeline from research to traffic</div>
+                <ul class="workflow-steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span><span class="step-skill">Trend Researcher</span> &mdash; Validate demand + competitors</span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span><span class="step-skill">Account Strategist</span> &mdash; Economics + launch sequence</span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span><span class="step-skill">Listing Optimizer</span> &mdash; Full content package</span>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <span><span class="step-skill">Brand Guardian</span> &mdash; Brand consistency audit</span>
+                    </li>
+                    <li>
+                        <span class="step-num">5</span>
+                        <span><span class="step-skill">Listing QA</span> &mdash; Pre-publish check</span>
+                    </li>
+                    <li>
+                        <span class="step-num">6</span>
+                        <span><span class="step-skill">Social Strategist</span> &mdash; Launch traffic plan</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="workflow-card">
+                <div class="workflow-title">Optimize Existing Listing</div>
+                <div class="workflow-subtitle">Audit, rewrite, verify, drive traffic</div>
+                <ul class="workflow-steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span><span class="step-skill">Listing Optimizer</span> &mdash; Audit + rewrite</span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span><span class="step-skill">Listing QA</span> &mdash; Verify changes</span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span><span class="step-skill">Social Strategist</span> &mdash; Drive traffic</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="workflow-card">
+                <div class="workflow-title">Monthly Review</div>
+                <div class="workflow-subtitle">Portfolio health check + planning</div>
+                <ul class="workflow-steps">
+                    <li>
+                        <span class="step-num">1</span>
+                        <span><span class="step-skill">Trend Researcher</span> &mdash; Competitor + keyword shifts</span>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <span><span class="step-skill">Account Strategist</span> &mdash; Portfolio triage</span>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <span><span class="step-skill">Social Strategist</span> &mdash; Content calendar</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- What's Inside -->
+<section class="section">
+    <div class="container">
+        <h2>What's Inside Each .skill File</h2>
+        <p class="section-intro">Each <code style="color:var(--accent);">.skill</code> file is a zip archive containing a single <code style="color:var(--accent);">SKILL.md</code> &mdash; the complete instruction set for that specialist. Open any <code style="color:var(--accent);">.skill</code> file with a zip tool to read or modify the instructions.</p>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="https://github.com/scottconverse/amazon-seller-skill-suite">GitHub Repository</a>
+            <a href="https://github.com/scottconverse/amazon-seller-skill-suite/archive/refs/heads/main.zip">Download .zip</a>
+            <a href="https://github.com/scottconverse/amazon-seller-skill-suite/issues">Report an Issue</a>
+            <a href="https://github.com/scottconverse">More Projects</a>
+        </div>
+        <p class="footer-meta">MIT License &middot; v1.0 &middot; Adapted from <a href="https://github.com/msitarzewski/agency-agents" style="color:var(--text-muted);">The Agency</a> by Mike Sitarzewski</p>
+    </div>
+</footer>
+
+</body>
+</html>

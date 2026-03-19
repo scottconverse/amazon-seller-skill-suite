@@ -1,0 +1,15 @@
+# Build artifacts
+build/
+
+# Audit results
+audit/
+audit-final/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vs/
+.vscode/
+*.user
