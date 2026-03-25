@@ -3,6 +3,22 @@
 6 Claude Cowork skills for Amazon marketplace selling.
 Works with any brand, any product category, any seller account type.
 
+---
+
+> **IMPORTANT DISCLAIMER**
+>
+> **This is not financial or business advice.** AI output may be inaccurate, outdated, or misleading. This project is **not affiliated with, endorsed by, or associated with Amazon.com, Inc.** in any way.
+>
+> Following AI-generated recommendations may result in financial loss, listing suppression, or Amazon account action (including suspension). Amazon policies, fees, and marketplace rules change frequently and without notice.
+>
+> **These skills run autonomously in Claude's CoWork mode and may take actions on your behalf.** Review all output before acting on any recommendation. You are solely responsible for your Amazon seller account and all business decisions.
+>
+> **Verify all information independently in Amazon Seller Central before acting on it.**
+>
+> See the [Terms of Service](docs/terms.html) for complete legal terms.
+
+---
+
 ## What It Does
 
 Drop these skills into Claude Desktop and they activate automatically based on what you ask. Each skill is a specialist — it knows its domain, enforces hard gates before giving advice, detects contradictions in your inputs, and refuses to fabricate data it doesn't have.
